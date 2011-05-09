@@ -7,6 +7,7 @@ var frameDelay = frameRate * 300;
 var paddleAngle = Math.PI/16;
 var loopTimer = false;
 var drawLoopTimer = false;
+var sprite = window.Sprite('player');
 
 // An array of objects that represent
 // lines drawn
@@ -35,9 +36,9 @@ var target =  {
 };
 
 
-var Cd  = 0.47; // (Coefficient of drag), Dimensionless
-var rho = 1.22; // Density of air, kg / m^3
-var A = Math.PI * ball.radius * ball.radius / (10000);
+var Cd  = 0.67; // (Coefficient of drag), Dimensionless
+var rho = 1.92; // Density of air, kg / m^3
+var A = Math.PI * ball.radius * ball.radius / (20000);
 var mouse = {x: 0, y: 0, isDown: false };
 var lastclick = {x: 0, y: 0};
 
@@ -184,9 +185,7 @@ var drawTarget = function () {
     // ctx.closePath();
     // ctx.fillStyle = fillStyle;
     
-	window.Sprite('player', function (player) { 
-		player.draw($('#canvas')[0].getContext('2d'), target.position.x - target.radius*1.3, target.position.y - target.radius*1.3)  
-	});
+	sprite.draw(ctx, target.position.x - target.radius*1.3, target.position.y - target.radius*1.3);
 	
     // Draw center of target
     ctx.beginPath();
@@ -209,7 +208,7 @@ var createBasket = function () {
                 },
                 lineTo: {
                     x: target.position.x + target.radius + 2,
-                    y: target.position.y + target.radius + 2 
+                    y: target.position.y + target.radius + 4 
                 }
             },
 			//left side
@@ -220,17 +219,17 @@ var createBasket = function () {
                 },
                 lineTo: {
                     x: target.position.x - target.radius - 2,
-                    y: target.position.y + target.radius + 2
+                    y: target.position.y + target.radius + 4
                 }
             },
 			//bottom
 			{ 
                 moveTo: {
-                    x: target.position.x - target.radius - 2,
+                    x: target.position.x - target.radius - 4,
                     y: target.position.y +  target.radius + 3
                 },
                 lineTo: {
-                    x: target.position.x + target.radius + 2,
+                    x: target.position.x + target.radius + 4,
                     y: target.position.y + target.radius + 2
                 }
             }
@@ -250,7 +249,7 @@ var testCircleCollision = function () {
         console.log('Collision');
 		stop();
 		ctx.font = "bold 30px sans-serif";
-		ctx.fillText("You are a winner. In this game, not real life.", 50, 50);
+		ctx.fillText("You are a winner. In this game. Not real life.", 50, 50);
 		
 
     }
