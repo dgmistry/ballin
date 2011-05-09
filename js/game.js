@@ -18,9 +18,13 @@ var maxplatforms = 0;
 
 // Singleton representing the ball
 var ball = {
-    position: { x: width/2, y: 200 },
-    velocity: { x: 20, y: 0},
-    mass: 0.9, // kg
+ /*    position: { x: width/2, y: 200 },
+    velocity: { x: 20, y: 0}, */
+    position: { 
+        x: Math.floor(Math.random() * (width - (45)) ),
+        y: Math.floor(Math.random() * (height - (45)) )
+	},
+	mass: 0.9, // kg
     radius: 15, // 1px = 1cm
     restitution: -1.1
 };
@@ -124,11 +128,22 @@ var setup = function () {
  * Start the game
  *
  */
+ 
+var randX = Math.floor(Math.random() * (width - (45)) );
+var randY = Math.floor(Math.random() * (height - (45)) );
+var randV = Math.floor(Math.random()*40 +20);
+
 var start = function () {
     // Reset ball position
     ball = {
-        position: { x: width/2, y: 200 },
-        velocity: { x: 20, y: 0},
+        position: { 
+			x: randX,
+			y: randY
+		},
+        velocity: { 
+			x: randV, 
+			y: 0
+		},
         mass: 0.4, // kg
         radius: 15, // 1px = 1cm
         restitution: -1.1
@@ -151,6 +166,7 @@ var stop = function () {
     ctx.clearRect(0, 0, width, height);
     platforms = [];
 	createBasket();
+	maxplatforms = platforms.length;
     drawLoopTimer = setInterval(drawloop, frameDelay);
 }
 
